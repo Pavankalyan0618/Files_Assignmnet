@@ -136,3 +136,42 @@ def save_messages_to_csv(data):
     print(messages_df)
 
 save_messages_to_csv(data)
+
+def list_universities_by_state(data):
+    state = input("Enter the state name:")
+    universities = []
+    for record in data:
+        if record['university']['state'] == state[0].upper()+state[1:]:
+            universities.append(record['university']['name'])
+    if universities:
+        print("Universities in",state,":")
+        for uni in universities:
+            print(uni)
+    else:
+        print("No universities found in",state)
+
+list_universities_by_state(data)
+
+def save_books_by_category(data):
+    categories = set()
+    for record in data:
+        for adoption in record['adoptions']:
+            categories.add(adoption['book']['category'])
+    print("Available book categories:")
+    for category in categories:
+        print(category)
+    user_choice = input("Enter the category of books you want to save: ")
+    book_titles = []
+    for record in data:
+        for adoption in record['adoptions']:
+            if adoption['book']['category'] == user_choice[0].upper()+user_choice[1:]:
+                book_titles.append(adoption['book']['title'])
+    if book_titles:
+        with open(f"{user_choice}_books.txt", 'w') as file:
+            for title in book_titles:
+                file.write(f"{title}\n")
+        print(f"Books in the {user_choice} category have been saved to {user_choice}_book.txt")
+    else:
+        print("No books found in the",user_choice,"category.")
+
+save_books_by_category(data)
