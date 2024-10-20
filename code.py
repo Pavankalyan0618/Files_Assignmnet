@@ -43,3 +43,56 @@ def save_contacts_to_csv(data):
     print(contacts_df)
 
 save_contacts_to_csv(data)
+
+def save_universities_to_csv(data):
+    universities = []
+    for record in data:
+            if 'address' not in record['university']:
+                universities.append({
+                "Adoption ID": record['id'],
+                "University ID": record['university']['id'],
+                "University Name": record['university']['name'],
+                "University Address": "N/A",
+                "University City": record['university']['city'],
+                "University State": record['university']['state'],
+                "University ZIP": record['university']['zip'],
+                "University Longitude": record['university']['longitude'],
+                "University Latitude": record['university']['latitude'],
+                "University Classification": record['university']['classification'],
+                "University Website": record['university']["website"]
+                })
+            elif 'website' not in record['university']:
+                universities.append({
+                "Adoption ID": record['id'],
+                "University ID": record['university']['id'],
+                "University Name": record['university']['name'],
+                "University Address": "record['university']['address']",
+                "University City": record['university']['city'],
+                "University State": record['university']['state'],
+                "University ZIP": record['university']['zip'],
+                "University Longitude": record['university']['longitude'],
+                "University Latitude": record['university']['latitude'],
+                "University Classification": record['university']['classification'],
+                "University Website": "N/A"
+                })
+
+            else:
+             universities.append({
+                "Adoption ID": record['id'],
+                "University ID": record['university']['id'],
+                "University Name": record['university']['name'],
+                "University Address": record['university']['address'],
+                "University City": record['university']['city'],
+                "University State": record['university']['state'],
+                "University ZIP": record['university']['zip'],
+                "University Longitude": record['university']['longitude'],
+                "University Latitude": record['university']['latitude'],
+                "University Classification": record['university']['classification'],
+                "University Website": record['university']["website"]
+             })
+    universities_df = pd.DataFrame(universities)
+    universities_df.to_csv('universties.csv', index=False)
+    print("Universiies Information saved to universities.csv")
+    print(universities_df)
+
+save_universities_to_csv(data)
