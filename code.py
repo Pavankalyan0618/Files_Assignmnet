@@ -96,3 +96,43 @@ def save_universities_to_csv(data):
     print(universities_df)
 
 save_universities_to_csv(data)
+
+def save_adoptions_to_csv(data):
+    adoptions = []
+    for record in data:
+        for adoption in record['adoptions']:
+            adoptions.append({
+                "Adoption ID": record['id'],
+                "ID": adoption['id'],
+                "Date": adoption['date'],
+                "Quantity ": adoption['quantity'],
+                "Book ID": adoption['book']['id'],
+                "Book isbn10": adoption['book']['isbn10'],
+                "Book isbn13": adoption['book']['isbn13'],
+                "Book title": adoption['book']['title'],
+                "Book Category": adoption['book']['category']
+            })
+    adoptions_df = pd.DataFrame(adoptions)
+    adoptions_df.to_csv('adoptions.csv', index=False)
+    print("Adoptions saved to adoptions.csv")
+    print(adoptions_df)
+
+save_adoptions_to_csv(data)
+
+def save_messages_to_csv(data):
+    messages = []
+    for record in data:
+        for message in record['messages']:
+            messages.append({
+                "Adoption ID": record['id'],
+                "ID": message['id'],
+                "Date": message['date'],
+                "Content": message['content'],
+                "Category": message['category']
+            })
+    messages_df = pd.DataFrame(messages)
+    messages_df.to_csv('messages.csv', index=False)
+    print("messages saved to messages.csv")
+    print(messages_df)
+
+save_messages_to_csv(data)
