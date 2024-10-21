@@ -6,8 +6,8 @@ def read_json():
     
     try:
         folder = input("Enter the folder name where the JSON file is located: ")
-        file_name = "Pavan-Kalyan-Pendyala_adoptions.json" 
-        file_path = os.path.join(folder, file_name)
+        file_name = "Pavan_Kalyan_Pendyala_adoptions.json" 
+        file_path = os.path.join(folder, "Pavan_Kalyan_Pendyala_adoptions.json")
         if not os.path.exists(file_path):
             raise FileNotFoundError("File not found:",file_path)
         with open(file_path, 'r') as file:
