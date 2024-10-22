@@ -22,7 +22,7 @@ def read_json():
     except Exception as e:
         print("An unexpected error occurred:",e)
         return None
-    
+
 
 data = read_json()
 
@@ -137,20 +137,23 @@ def save_messages_to_csv(data):
 
 save_messages_to_csv(data)
 
-def list_universities_by_state(data):
+def list_universities_by_state_csv(data):
     state = input("Enter the state name:")
     universities = []
     for record in data:
         if record['university']['state'] == state[0].upper()+state[1:]:
-            universities.append(record['university']['name'])
+            universities.append({'University':record['university']['name'],'State':state})
     if universities:
+        universities_df = pd.DataFrame(universities)
+        universities_df.to_csv(f"universities_{state}.csv",index=False)
         print("Universities in",state,":")
         for uni in universities:
-            print(uni)
+            print(uni['University'])
+        print(f'universities list is saved as csv file under the name universities_{state}')
     else:
-        print("No universities found in",state)
+        print("No universities found in",state)    
 
-list_universities_by_state(data)
+list_universities_by_state_csv(data)           
 
 def save_books_by_category(data):
     categories = set()
